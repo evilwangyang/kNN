@@ -5,7 +5,7 @@
 # @Auther    :  WangYang
 # @Email     :  evilwangyang@126.com
 # @Project   :  kNN
-# @File      :  kNN.py
+# @File      :  kNN_test1.py
 # @Software  :  PyCharm Community Edition
 
 # ********************************************************* 
@@ -21,12 +21,20 @@ def classify0(inX,dataSet,labels,k):
 	dataSetSize = dataSet.shape[0]
 	diffMat = tile(inX,(dataSetSize,1)) - dataSet
 	sqDiffMat = diffMat**2
-	sqDistance = sqDiffMat.sum(axis=1)
-	distance = sqDistance**0.5
-	sortedDistIndicies = distance.argsort()
+	sqDistances = sqDiffMat.sum(axis=1)
+	distances = sqDistances**0.5
+	sortedDistIndicies = distances.argsort()
 	classCount = {}
 	for i in range(k):
 		voteIlabel = labels[sortedDistIndicies[i]]
 		classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-	sortedClassCount = sorted(classCount.iteritesms(),key=operator.itemgetter(1),reverse=True)
+	sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)
 	return sortedClassCount[0][0]
+
+if __name__ == '__main__':
+
+	group,labels = createDataSet()
+	test = [1.0,0.9]
+	testclass = classify0(test,group,labels,3)
+	print(testclass)
+
