@@ -9,17 +9,17 @@
 # @Software  :  PyCharm Community Edition
 
 # ********************************************************* 
-from numpy import *
+import numpy as np
 import operator
 
 def createDataSet():
-	group = array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
+	group = np.array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
 	labels = ['A','A','B','B']
 	return group,labels
 
 def classify0(inX,dataSet,labels,k):
 	dataSetSize = dataSet.shape[0]
-	diffMat = tile(inX,(dataSetSize,1)) - dataSet
+	diffMat = np.tile(inX,(dataSetSize,1)) - dataSet
 	sqDiffMat = diffMat**2
 	sqDistances = sqDiffMat.sum(axis=1)
 	distances = sqDistances**0.5
@@ -34,7 +34,7 @@ def classify0(inX,dataSet,labels,k):
 if __name__ == '__main__':
 
 	group,labels = createDataSet()
-	test = [1.0,0.9]
+	test = [0,0]
 	testclass = classify0(test,group,labels,3)
 	print(testclass)
 
